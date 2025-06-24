@@ -1,0 +1,13 @@
+# Environment variables
+AWS_ACCESS_KEY_ID=dummy
+AWS_SECRET_ACCESS_KEY=dummy
+AWS_REGION=ap-south-1
+S3_BUCKET=weather-data-lake-green
+S3_PATH=observations/
+
+MONGO_URI=mongodb://localhost:27017
+MONGO_DB=weather
+MONGO_COLLECTION=analytics
+
+KAFKA_BROKER=localhost:9092
+KAFKA_TOPIC=weather_obs
