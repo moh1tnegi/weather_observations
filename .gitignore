@@ -1,1 +1,5 @@
 .idea/
+kafka/raw_data
+kafka/weather_data_parquet
+__pycache__/
+*.ipynb

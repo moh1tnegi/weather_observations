@@ -1,0 +1,63 @@
+-- snowflake tables --
+create or replace TABLE WEATHER.ANALYTICS.CITY_DIM (
+    CITY_ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 noorder,
+    CITY_NAME VARCHAR(50),
+    LATITUDE FLOAT,
+    LONGITUDE FLOAT,
+    primary key (CITY_ID)
+);
+
+create or replace TABLE WEATHER.ANALYTICS.OBSERVATION_QUALITY_DIM (
+    QUALITY_ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 noorder,
+    QUALITY_CONTROL_LABEL VARCHAR(20),
+    primary key (QUALITY_ID)
+);
+
+create or replace TABLE WEATHER.ANALYTICS.STATION_DIM (
+    STATION_ID VARCHAR(20) NOT NULL,
+    STATION_NAME VARCHAR(100),
+    ELEVATION FLOAT,
+    CITY_ID NUMBER(38,0),
+    primary key (STATION_ID),
+    foreign key (CITY_ID) references WEATHER.ANALYTICS.CITY_DIM(CITY_ID)
+);
+
+create or replace TABLE WEATHER.ANALYTICS.TIME_DIM (
+    TIME_ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 noorder,
+    TIMESTAMP TIMESTAMP_NTZ(9),
+    YEAR NUMBER(38,0),
+    QUARTER NUMBER(38,0),
+    MONTH NUMBER(38,0),
+    DAY NUMBER(38,0),
+    WEEKDAY NUMBER(38,0),
+    HOUR NUMBER(38,0),
+    primary key (TIME_ID)
+);
+
+create or replace TABLE WEATHER.ANALYTICS.WEATHER_CONDITION_DIM (
+    CONDITION_ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 noorder,
+    DESCRIPTION VARCHAR(1000),
+    ICON_URL VARCHAR(1000),
+    primary key (CONDITION_ID)
+);
+
+create or replace TABLE WEATHER.ANALYTICS.WEATHER_FACT (
+    FACT_ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 noorder,
+    STATION_ID VARCHAR(20),
+    TIME_ID NUMBER(38,0),
+    TEMPERATURE FLOAT,
+    DEWPOINT FLOAT,
+    WIND_SPEED FLOAT,
+    WIND_GUST FLOAT,
+    WIND_DIRECTION FLOAT,
+    BAROMETRIC_PRESSURE FLOAT,
+    SEA_LEVEL_PRESSURE FLOAT,
+    VISIBILITY FLOAT,
+    HUMIDITY FLOAT,
+    HEAT_INDEX FLOAT,
+    WIND_CHILL FLOAT,
+    TEXT_DESCRIPTION VARCHAR(1000),
+    primary key (FACT_ID),
+    foreign key (STATION_ID) references WEATHER.ANALYTICS.STATION_DIM(STATION_ID),
+    foreign key (TIME_ID) references WEATHER.ANALYTICS.TIME_DIM(TIME_ID)
+);
