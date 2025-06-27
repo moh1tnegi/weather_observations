@@ -2,10 +2,6 @@ from pyspark.sql.functions import from_json, col, to_timestamp
 from models.raw_weather_entity import raw_weather_schema
 
 def deserialize_weather_data(raw_data):
-    a = raw_data.selectExpr("CAST(value AS STRING) as json") \
-    .select(from_json(col("json"), raw_weather_schema).alias("data")) \
-    .select("data.*")
-    print(a)
     return raw_data.selectExpr("CAST(value AS STRING) as json") \
         .select(from_json(col('json'), raw_weather_schema).alias('data')) \
         .select(
