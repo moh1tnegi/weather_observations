@@ -24,7 +24,7 @@ create or replace TABLE WEATHER.ANALYTICS.STATION_DIM (
 
 create or replace TABLE WEATHER.ANALYTICS.TIME_DIM (
     TIME_ID NUMBER(38,0) NOT NULL autoincrement start 1 increment 1 noorder,
-    TIMESTAMP TIMESTAMP_NTZ(9),
+    OBS_TIME TIMESTAMP_NTZ(9),
     YEAR NUMBER(38,0),
     QUARTER NUMBER(38,0),
     MONTH NUMBER(38,0),
